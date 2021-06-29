@@ -102,6 +102,7 @@ if categorie == 'Overview':
     with col1:
         st.title('How to create a title')
     with col2:
+        st.subheader(" ")
         fig = go.Figure(go.Bar(
             y=[52, 56],
             x=['Cluster 1', 'Cluster 2'],
@@ -112,66 +113,133 @@ if categorie == 'Overview':
         fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
                           font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                           height=300)
-        fig.update_xaxes(title='Use the best lenght')
         st.plotly_chart(fig, use_container_width=True)
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
     st.title('Add your metadata')
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
+    col1, col2 = st.beta_columns([5, 4])
+    with col1:
+        fig = go.Figure(go.Bar(
+            y=[5.5, 8],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[5.5, 8],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} fields')
+        fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=300)
+        st.plotly_chart(fig, use_container_width=True)
+    with col2:
+        st.subheader(" ")
+
+
 
 if categorie == 'Pricing':
     st.markdown("***")
     st.title('Choose the best pricing')
     fig = go.Figure()
-    
-    # Defining y axis
-    x = df['cluster']
-    
-    fig.add_trace(go.Box(
-    
-        # defining x axis in corresponding
-        # to y-axis
-        x=x,
-        y=df['package1-price 1'],
-        name='prix 1',
-        marker_color='green'
-    ))
-    
-    fig.add_trace(go.Box(
-        x=x,
-        y=df['package2-price 1'],
-        name='prix 2',
-        marker_color='yellow'
-    ))
-    
-    fig.add_trace(go.Box(
-        x=x,
-        y=df['package3-price 1'],
-        name='prix 3',
-        marker_color='blue'
-    ))
-    
-    fig.update_layout(
-    
-        # group together boxes of the different
-        # traces for each value of y
-        boxmode='group'
-    )
-    fig.update_xaxes(title_text="<b>Clusters", range = [-0.5,1.5])
-    fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package1-price 1'], name = 'Cluster 2',
+                    marker_color = '#1dbf73'))
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package2-price 1'], name = 'Cluster 1 ',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package2-price 1'], name = 'Cluster 2 ',
+                    marker_color = '#1dbf73'))
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package3-price 1'], name='Cluster 1  ',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package3-price 1'], name = 'Cluster 2  ',
+                    marker_color = '#1dbf73'))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-    fig.update_layout(title_text="<b>Répartition des prix par cluster", title_x=0.5, title_font_family="Verdana")
+    fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
+    fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana")
+    fig.add_annotation(
+            x=2.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Prix 2",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor="#AED6F1",
+            opacity=0.8
+            )
+    fig.add_annotation(
+            x=0.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Prix 1",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor="#AED6F1",
+            opacity=0.8
+            )
+    fig.add_annotation(
+            x=4.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Prix 3",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor='#AED6F1',
+            opacity=0.8
+            )
+    fig.update_layout(showlegend=False)
 
-
-    
-    # changing the orientation to horizontal
-    #fig.update_traces(orientation='h')
 
     st.write(fig)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/pricing1.png?raw=true")
 
 if categorie == 'Description':
     st.markdown("***")
-    st.title('... best description')
+    st.title('Description')
     st.title('')
     fig = go.Figure()
     fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
