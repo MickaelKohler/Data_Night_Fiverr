@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 import plotly.graph_objects as go
 
 # FONCTION #
@@ -12,7 +13,7 @@ def load_data(url):
 # DATA #
 
 DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/db_clustering.csv'
-
+df = load_data(DB_CLUSTURING)
 
 # SIDEBAR #
 
@@ -39,14 +40,17 @@ if categorie == 'Clustering':
     st.markdown("***")
     st.title('Clustering')
 
-    db_clusters = load_data(DB_CLUSTURING)
-
     st.subheader('Why looking for clusters of sellers ?')
+
+    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16)
+    st.plotly_chart(fig, use_container_width=True)
+
 
 
 
     st.subheader("The Selected Clusters' Characteristics")
-    st.markdown("lol")
+    st.markdown("""For the same number of scores or so, cluster 2 has less seniority,
+                but has double the number of bookmakers.""")
 
     col1, col2, col3 = st.beta_columns(3)
     with col1:
@@ -58,7 +62,8 @@ if categorie == 'Clustering':
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} rates')
         fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
-                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=350)
         fig.update_xaxes(title='Number of ratings')
         st.plotly_chart(fig, use_container_width=True)
     with col2:
@@ -70,7 +75,8 @@ if categorie == 'Clustering':
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} years')
         fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
-                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=350)
         fig.update_xaxes(title='Years since registration')
         st.plotly_chart(fig, use_container_width=True)
 
@@ -83,13 +89,29 @@ if categorie == 'Clustering':
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} add')
         fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
-                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=350)
         fig.update_xaxes(title='Number of bookmarkes')
         st.plotly_chart(fig, use_container_width=True)
 
 if categorie == 'Overview':
     st.markdown("***")
-    st.title('How to create a title')
+    col1, col2 = st.beta_columns([5, 4])
+    with col1:
+        st.title('How to create a title')
+    with col2:
+        fig = go.Figure(go.Bar(
+            y=[52, 56],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[52, 56],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} characters')
+        fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=300)
+        fig.update_xaxes(title='Use the best lenght')
+        st.plotly_chart(fig, use_container_width=True)
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
     st.title('Add your metadata')
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
