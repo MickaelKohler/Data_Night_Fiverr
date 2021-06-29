@@ -31,5 +31,9 @@ if categorie == 'NLP':
 
 # let's code
 
+<<<<<<< Updated upstream
 # salut, beaucoup de travail nous attend jusqu'a demain
 
+=======
+# salut, beaucoup de travail nous attend
+>>>>>>> Stashed changes
