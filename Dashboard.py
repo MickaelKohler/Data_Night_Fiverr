@@ -20,8 +20,11 @@ df = load_data(DB_CLUSTURING)
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Overview", 'Pricing', 'Description'))
-
+categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Optimize a seller profile"))
+if categorie == 'Optimize a seller profile':
+    sub_categorie = st.sidebar.radio("Optimize a seller profile", ('Overview',
+                                                                   'Pricing',
+                                                                   'Description'))
 
 # MAIN PAGE #
 col1, col2 = st.beta_columns([2, 1])
@@ -74,6 +77,8 @@ if categorie == 'The Mission':
 
     fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'],
                        title='<b>What is their seniority ?</b>')
+    fig.update_xaxes(title='Years of seniority')
+    fig.update_yaxes(title='Numbers of Fiverrs')
     st.plotly_chart(fig, use_container_width=True)
 
 if categorie == 'Clustering':
@@ -81,12 +86,6 @@ if categorie == 'Clustering':
     st.title('Clustering')
 
     st.subheader('Why looking for clusters of sellers ?')
-
-    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'])
-    st.plotly_chart(fig, use_container_width=True)
-
-
-
 
     st.subheader("The Selected Clusters' Characteristics")
     st.markdown("""For the same number of scores or so, cluster 2 has less seniority,
@@ -134,97 +133,98 @@ if categorie == 'Clustering':
         fig.update_xaxes(title='Number of bookmarkes')
         st.plotly_chart(fig, use_container_width=True)
 
-if categorie == 'Overview':
-    st.markdown("***")
-    col1, col2 = st.beta_columns([5, 4])
-    with col1:
-        st.title('How to create a title')
-        st.title(' ')
-        st.markdown('''
-        The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
-        ''')
-    with col2:
-        fig = go.Figure(go.Bar(
-            y=[52, 56],
-            x=['Cluster 1', 'Cluster 2'],
-            marker_color=['lightgray', '#1dbf73'],
-            text=[52, 56],
-            textposition='auto'))
-        fig.update_traces(texttemplate='%{text} characters')
-        fig.update_layout(plot_bgcolor='rgba(0,0,0,0)', template='plotly_white', showlegend=False,
-                          font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
-                          height=300)
-        fig.update_xaxes(title='Use the best lenght')
-        st.plotly_chart(fig, use_container_width=True)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
-    st.title('Add your metadata')
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
+if categorie == 'Optimize a seller profile':
+    if sub_categorie == 'Overview':
+        st.markdown("***")
+        col1, col2 = st.beta_columns([5, 4])
+        with col1:
+            st.title('How to create a title')
+            st.title(' ')
+            st.markdown('''
+            The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
+            ''')
+        with col2:
+            fig = go.Figure(go.Bar(
+                y=[52, 56],
+                x=['Cluster 1', 'Cluster 2'],
+                marker_color=['lightgray', '#1dbf73'],
+                text=[52, 56],
+                textposition='auto'))
+            fig.update_traces(texttemplate='%{text} characters')
+            fig.update_layout(plot_bgcolor='rgba(0,0,0,0)', template='plotly_white', showlegend=False,
+                              font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                              height=300)
+            fig.update_xaxes(title='Use the best lenght')
+            st.plotly_chart(fig, use_container_width=True)
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
+        st.title('Add your metadata')
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
 
-if categorie == 'Pricing':
-    st.markdown("***")
-    st.title('Choose the best pricing')
-    fig = go.Figure()
-    
-    # Defining y axis
-    x = df['cluster']
-    
-    fig.add_trace(go.Box(
-    
-        # defining x axis in corresponding
-        # to y-axis
-        x=x,
-        y=df['package1-price 1'],
-        name='prix 1',
-        marker_color='green'
-    ))
-    
-    fig.add_trace(go.Box(
-        x=x,
-        y=df['package2-price 1'],
-        name='prix 2',
-        marker_color='yellow'
-    ))
-    
-    fig.add_trace(go.Box(
-        x=x,
-        y=df['package3-price 1'],
-        name='prix 3',
-        marker_color='blue'
-    ))
-    
-    fig.update_layout(
-    
-        # group together boxes of the different
-        # traces for each value of y
-        boxmode='group'
-    )
-    fig.update_xaxes(title_text="<b>Clusters", range = [-0.5,1.5])
-    fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
-    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-    fig.update_layout(title_text="<b>Répartition des prix par cluster", title_x=0.5, title_font_family="Verdana")
+    if sub_categorie == 'Pricing':
+        st.markdown("***")
+        st.title('Choose the best pricing')
+        fig = go.Figure()
+
+        # Defining y axis
+        x = df['cluster']
+
+        fig.add_trace(go.Box(
+
+            # defining x axis in corresponding
+            # to y-axis
+            x=x,
+            y=df['package1-price 1'],
+            name='prix 1',
+            marker_color='green'
+        ))
+
+        fig.add_trace(go.Box(
+            x=x,
+            y=df['package2-price 1'],
+            name='prix 2',
+            marker_color='yellow'
+        ))
+
+        fig.add_trace(go.Box(
+            x=x,
+            y=df['package3-price 1'],
+            name='prix 3',
+            marker_color='blue'
+        ))
+
+        fig.update_layout(
+
+            # group together boxes of the different
+            # traces for each value of y
+            boxmode='group'
+        )
+        fig.update_xaxes(title_text="<b>Clusters", range = [-0.5,1.5])
+        fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
+        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+        fig.update_layout(title_text="<b>Répartition des prix par cluster", title_x=0.5, title_font_family="Verdana")
 
 
-    
-    # changing the orientation to horizontal
-    # fig.update_traces(orientation='h')
 
-    st.write(fig)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
+        # changing the orientation to horizontal
+        # fig.update_traces(orientation='h')
 
-if categorie == 'Description':
-    st.markdown("***")
-    st.title('... best description')
-    st.title('')
-    fig = go.Figure()
-    fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
-                marker_color = 'lightgrey'))
-    fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
-                marker_color = '#1dbf73'))
-    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-    fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-    fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-    fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
-    fig.update_layout(showlegend=False)
-    st.write(fig)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
+        st.write(fig)
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
+
+    if sub_categorie == 'Description':
+        st.markdown("***")
+        st.title('... best description')
+        st.title('')
+        fig = go.Figure()
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
+                    marker_color = 'lightgrey'))
+        fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
+                    marker_color = '#1dbf73'))
+        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+        fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
+        fig.update_layout(showlegend=False)
+        st.write(fig)
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
     
