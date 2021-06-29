@@ -5,7 +5,7 @@ import streamlit as st
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("Home", "Clustering", "NLP"))
+categorie = st.sidebar.radio("Categories", ("Home", "Clustering", "Overview", 'Pricing', 'Description'))
 
 
 if categorie == 'Home':
@@ -23,8 +23,20 @@ if categorie == 'Clustering':
     st.markdown("***")
     st.title('Clustering')
 
-if categorie == 'NLP':
+if categorie == 'Overview':
     st.markdown("***")
-    st.title('NLP')
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_shema1.png?raw=true")
+    st.title('How to create a title')
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema1.png?raw=true")
+    st.title('Add your metadata')
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
 
+if categorie == 'Pricing':
+    st.markdown("***")
+    st.title('Choose the best pricing')
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
+
+if categorie == 'Description':
+    st.markdown("***")
+    st.title('... best description')
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Description.png?raw=true")
+    
