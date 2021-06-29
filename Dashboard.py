@@ -1,15 +1,36 @@
-import pandas as ps
+import pandas as pd
 import streamlit as st
+<<<<<<< Updated upstream
 import plotly.graph_objects as go
 
 #Import bases de données
 #df= pd.read_csv("https://raw.githubusercontent.com/MaximeNICASTRO/Projet-Hackathon/main/meteor_nasa")
+=======
+import plotly.express as px
+import plotly.graph_objects as go
+
+# FONCTION #
+
+@st.cache
+def load_data(url):
+    return pd.read_csv(url)
+
+
+# DATA #
+
+DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/db_clustering.csv'
+
+
+# SIDEBAR #
+>>>>>>> Stashed changes
 
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
 categorie = st.sidebar.radio("Categories", ("Home", "Clustering", "Overview", 'Pricing', 'Description'))
 
+
+# MAIN PAGE #
 
 if categorie == 'Home':
     st.markdown("""  <style> .reportview-container { background:
@@ -25,6 +46,54 @@ if categorie == 'Home':
 if categorie == 'Clustering':
     st.markdown("***")
     st.title('Clustering')
+
+    db_clusters = load_data(DB_CLUSTURING)
+
+    st.subheader('Why looking for clusters of sellers ?')
+
+
+
+    st.subheader("The Selected Clusters' Characteristics")
+    st.markdown("lol")
+
+    col1, col2, col3 = st.beta_columns(3)
+    with col1:
+        fig = go.Figure(go.Bar(
+            y=[27, 31],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[27, 31],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} rates')
+        fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+        fig.update_xaxes(title='Number of ratings')
+        st.plotly_chart(fig, use_container_width=True)
+    with col2:
+        fig = go.Figure(go.Bar(
+            y=[3.20, 2.3],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[3.20, 2.3],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} years')
+        fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+        fig.update_xaxes(title='Years since registration')
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col3:
+        fig = go.Figure(go.Bar(
+            y=[16, 29],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[16, 29],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} add')
+        fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20))
+        fig.update_xaxes(title='Number of bookmarkes')
+        st.plotly_chart(fig, use_container_width=True)
 
 if categorie == 'Overview':
     st.markdown("***")
