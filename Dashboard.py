@@ -12,7 +12,7 @@ def load_data(url):
 # DATA #
 
 DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/db_clustering.csv'
-
+df = load_data(DB_CLUSTURING)
 
 # SIDEBAR #
 
@@ -39,7 +39,7 @@ if categorie == 'Clustering':
     st.markdown("***")
     st.title('Clustering')
 
-    db_clusters = load_data(DB_CLUSTURING)
+    
 
     st.subheader('Why looking for clusters of sellers ?')
 
@@ -97,6 +97,52 @@ if categorie == 'Overview':
 if categorie == 'Pricing':
     st.markdown("***")
     st.title('Choose the best pricing')
+    fig = go.Figure()
+    
+    # Defining y axis
+    x = df['cluster']
+    
+    fig.add_trace(go.Box(
+    
+        # defining x axis in corresponding
+        # to y-axis
+        x=x,
+        y=df['package1-price 1'],
+        name='prix 1',
+        marker_color='green'
+    ))
+    
+    fig.add_trace(go.Box(
+        x=x,
+        y=df['package2-price 1'],
+        name='prix 2',
+        marker_color='yellow'
+    ))
+    
+    fig.add_trace(go.Box(
+        x=x,
+        y=df['package3-price 1'],
+        name='prix 3',
+        marker_color='blue'
+    ))
+    
+    fig.update_layout(
+    
+        # group together boxes of the different
+        # traces for each value of y
+        boxmode='group'
+    )
+    fig.update_xaxes(title_text="<b>Clusters", range = [-0.5,1.5])
+    fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
+    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+    fig.update_layout(title_text="<b>Répartition des prix par cluster", title_x=0.5, title_font_family="Verdana")
+
+
+    
+    # changing the orientation to horizontal
+    #fig.update_traces(orientation='h')
+
+    st.write(fig)
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
 
 if categorie == 'Description':
@@ -104,7 +150,7 @@ if categorie == 'Description':
     st.title('... best description')
     st.title('')
     fig = go.Figure()
-    fig.add_trace(go.Box(y=df[df['cluster']==1]['len_description'], name='Cluster 1',
+    fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
                 marker_color = 'lightgrey'))
     fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
                 marker_color = '#1dbf73'))
@@ -114,5 +160,5 @@ if categorie == 'Description':
     fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
     fig.update_layout(showlegend=False)
     st.write(fig)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Description_1.png?raw=true")
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
     
