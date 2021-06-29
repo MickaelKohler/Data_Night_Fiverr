@@ -24,11 +24,10 @@ categorie = st.sidebar.radio("Categories", ("Home", "Clustering", "Overview", 'P
 
 
 # MAIN PAGE #
-
+col1, col2 = st.beta_columns([2, 3])
+with col2:
+    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/image_fiverr2.png?raw=true')
 if categorie == 'Home':
-    st.markdown("""  <style> .reportview-container { background:
-    url("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/image_fiverr2.png?raw=true")}
-    </style> """, unsafe_allow_html=True)
     st.markdown("***")
     st.title('Home')
     st.write("Context:")
@@ -40,11 +39,31 @@ if categorie == 'Clustering':
     st.markdown("***")
     st.title('Clustering')
 
-    
+    countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True) * 100).round(2)).iloc[:10]
+    fig = go.Figure(data=[go.Scatter(
+        x=list(countries.index), y=[1] * 10,
+        text=countries['user-stats-from 1'],
+        mode='markers',
+        marker=dict(
+            size=countries['user-stats-from 1'],
+            color=countries['user-stats-from 1'],
+            sizemode='area',
+            sizeref=0.002,
+            showscale=True,
+            colorscale='Tealgrn'
+        )
+    )])
+    fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
+                      title='<b>Which country do Fiverrs come from ?</b>',
+                      uniformtext_minsize=14, uniformtext_mode='hide',
+                      margin=dict(l=10, r=10, b=10),
+                      plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_yaxes(title=None, showticklabels=False)
+    st.plotly_chart(fig, use_container_width=True)
 
     st.subheader('Why looking for clusters of sellers ?')
 
-    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16)
+    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'])
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -101,6 +120,10 @@ if categorie == 'Overview':
     col1, col2 = st.beta_columns([5, 4])
     with col1:
         st.title('How to create a title')
+        st.title(' ')
+        st.markdown('''
+        The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
+        ''')
     with col2:
         fig = go.Figure(go.Bar(
             y=[52, 56],
@@ -109,8 +132,8 @@ if categorie == 'Overview':
             text=[52, 56],
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} characters')
-        fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
-                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+        fig.update_layout(plot_bgcolor='rgba(0,0,0,0)', template='plotly_white', showlegend=False,
+                          font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                           height=300)
         fig.update_xaxes(title='Use the best lenght')
         st.plotly_chart(fig, use_container_width=True)
@@ -164,7 +187,7 @@ if categorie == 'Pricing':
 
     
     # changing the orientation to horizontal
-    #fig.update_traces(orientation='h')
+    # fig.update_traces(orientation='h')
 
     st.write(fig)
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Pricing.png?raw=true")
