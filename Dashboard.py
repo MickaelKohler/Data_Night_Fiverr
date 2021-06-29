@@ -136,9 +136,12 @@ if categorie == 'Clustering':
 
 if categorie == 'Overview':
     st.markdown("***")
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('How to create a title')
     col1, col2 = st.beta_columns([5, 4])
     with col1:
-        st.title('How to create a title')
+        st.title(' ')
         st.title(' ')
         st.markdown('''
         The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
@@ -157,7 +160,9 @@ if categorie == 'Overview':
                           height=300)
         st.plotly_chart(fig, use_container_width=True)
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
-    st.title('Add your metadata')
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('Add your metadata')
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
     col1, col2 = st.beta_columns([5, 4])
     with col1:
@@ -179,7 +184,10 @@ if categorie == 'Overview':
 
 if categorie == 'Pricing':
     st.markdown("***")
-    st.title('Choose the best pricing')
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('Choose the best pricing')
+
     fig = go.Figure()
     fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
                     marker_color = 'lightgrey'))
@@ -281,7 +289,10 @@ if categorie == 'Pricing':
 
 if categorie == 'Description':
     st.markdown("***")
-    st.title('Description')
+    col1, col2, col3 = st.beta_columns(3)
+    with col2:
+        st.title('Description')
+
     st.title('')
     fig = go.Figure()
     fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
