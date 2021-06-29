@@ -1,6 +1,9 @@
 import pandas as ps
 import streamlit as st
+import plotly.graph_objects as go
 
+#Import bases de données
+#df= pd.read_csv("https://raw.githubusercontent.com/MaximeNICASTRO/Projet-Hackathon/main/meteor_nasa")
 
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
@@ -38,5 +41,17 @@ if categorie == 'Pricing':
 if categorie == 'Description':
     st.markdown("***")
     st.title('... best description')
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Description.png?raw=true")
+    st.title('')
+    fig = go.Figure()
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['len_description'], name='Cluster 1',
+                marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
+                marker_color = '#1dbf73'))
+    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+    fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
+    fig.update_layout(showlegend=False)
+    st.write(fig)
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Description_1.png?raw=true")
     
