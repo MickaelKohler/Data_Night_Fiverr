@@ -159,7 +159,7 @@ if categorie == 'Overview':
                           font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                           height=300)
         st.plotly_chart(fig, use_container_width=True)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title.png?raw=true")
     col1, col2, col3 = st.beta_columns([1, 3, 1])
     with col2:
         st.title('Add your metadata')
@@ -211,7 +211,7 @@ if categorie == 'Pricing':
             y=1000,
             xref="x",
             yref="y",
-            text="Prix 2",
+            text="Standard",
             showarrow=False,
             font=dict(
                 family="Courier New, monospace",
@@ -236,7 +236,7 @@ if categorie == 'Pricing':
             y=1000,
             xref="x",
             yref="y",
-            text="Prix 1",
+            text="Basic",
             showarrow=False,
             font=dict(
                 family="Courier New, monospace",
@@ -261,7 +261,7 @@ if categorie == 'Pricing':
             y=1000,
             xref="x",
             yref="y",
-            text="Prix 3",
+            text="Premium",
             showarrow=False,
             font=dict(
                 family="Courier New, monospace",
