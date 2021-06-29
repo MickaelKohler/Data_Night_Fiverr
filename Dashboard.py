@@ -1,12 +1,5 @@
 import pandas as pd
 import streamlit as st
-<<<<<<< Updated upstream
-import plotly.graph_objects as go
-
-#Import bases de données
-#df= pd.read_csv("https://raw.githubusercontent.com/MaximeNICASTRO/Projet-Hackathon/main/meteor_nasa")
-=======
-import plotly.express as px
 import plotly.graph_objects as go
 
 # FONCTION #
@@ -22,7 +15,6 @@ DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/db_
 
 
 # SIDEBAR #
->>>>>>> Stashed changes
 
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
