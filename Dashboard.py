@@ -292,18 +292,16 @@ if categorie == 'Description':
     col1, col2, col3 = st.beta_columns([1, 3, 1])
     with col2:
         st.title('The best description')
-
-    st.title('')
-    fig = go.Figure()
-    fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
-                marker_color = 'lightgrey'))
-    fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
-                marker_color = '#1dbf73'))
-    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-    fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-    fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-    fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
-    fig.update_layout(showlegend=False)
-    st.write(fig)
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
-    
+        
+        fig = go.Figure()
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
+                    marker_color = 'lightgrey'))
+        fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
+                    marker_color = '#1dbf73'))
+        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+        fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
+        fig.update_layout(showlegend=False)
+        st.write(fig)
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
