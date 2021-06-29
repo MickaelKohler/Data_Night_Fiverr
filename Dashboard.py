@@ -20,11 +20,8 @@ df = load_data(DB_CLUSTURING)
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Optimize a seller profile"))
-if categorie == 'Optimize a seller profile':
-    sub_categorie = st.sidebar.radio("Optimize a seller profile", ('Overview',
-                                                                   'Pricing',
-                                                                   'Description'))
+categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Overview", 'Pricing', 'Description'))
+
 
 # MAIN PAGE #
 col1, col2 = st.beta_columns([2, 1])
@@ -77,8 +74,6 @@ if categorie == 'The Mission':
 
     fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'],
                        title='<b>What is their seniority ?</b>')
-    fig.update_xaxes(title='Years of seniority')
-    fig.update_yaxes(title='Numbers of Fiverrs')
     st.plotly_chart(fig, use_container_width=True)
 
 if categorie == 'Clustering':
@@ -86,6 +81,12 @@ if categorie == 'Clustering':
     st.title('Clustering')
 
     st.subheader('Why looking for clusters of sellers ?')
+
+    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'])
+    st.plotly_chart(fig, use_container_width=True)
+
+
+
 
     st.subheader("The Selected Clusters' Characteristics")
     st.markdown("""For the same number of scores or so, cluster 2 has less seniority,
@@ -133,182 +134,165 @@ if categorie == 'Clustering':
         fig.update_xaxes(title='Number of bookmarkes')
         st.plotly_chart(fig, use_container_width=True)
 
-if categorie == 'Optimize a seller profile':
-    if sub_categorie == 'Overview':
-        st.markdown("***")
-        col1, col2, col3 = st.beta_columns([1, 3, 1])
-        with col2:
-            st.title('Optimize a seller profile')
-        col1, col2, col3 = st.beta_columns([2, 1, 2])
-        with col2:
-            st.subheader('Overview')
-            st.title(' ')
-
-        col1, col2 = st.beta_columns([5, 4])
-        with col1:
-            st.title(' ')
-            st.subheader('How to create a title')
-            st.title(' ')
-            st.markdown('''
-            The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
-            ''')
-        with col2:
-            st.subheader(" ")
-            fig = go.Figure(go.Bar(
-                y=[52, 56],
-                x=['Cluster 1', 'Cluster 2'],
-                marker_color=['lightgray', '#1dbf73'],
-                text=[52, 56],
-                textposition='auto'))
-            fig.update_traces(texttemplate='%{text} characters')
-            fig.update_layout(plot_bgcolor='rgba(0,0,0,0)', template='plotly_white', showlegend=False,
-                              font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
-                              height=300)
-            st.plotly_chart(fig, use_container_width=True)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/title_schema.png")
-
-        st.markdown('***')
-
-        col1, col2, col3 = st.beta_columns(3)
-        with col2:
-            st.subheader('Add your metadata')
-            st.title(' ')
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
-        col1, col2 = st.beta_columns([5, 4])
-        with col1:
-            fig = go.Figure(go.Bar(
-                y=[5.5, 8],
-                x=['Cluster 1', 'Cluster 2'],
-                marker_color=['lightgray', '#1dbf73'],
-                text=[5.5, 8],
-                textposition='auto'))
-            fig.update_traces(texttemplate='%{text} fields')
-            fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
-                              font_size=15, margin=dict(l=10, r=10, b=10, t=20),
-                              height=300)
-            st.plotly_chart(fig, use_container_width=True)
-        with col2:
-            st.subheader(" ")
-
-    if sub_categorie == 'Pricing':
-        st.markdown("***")
-        col1, col2, col3 = st.beta_columns([1, 3, 1])
-        with col2:
-            st.title('Optimize a seller profile')
-        col1, col2, col3 = st.beta_columns(3)
-        with col2:
-            st.subheader('Choose the best pricing')
-            st.title(' ')
-
-        fig = go.Figure()
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
-                        marker_color = 'lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package1-price 1'], name = 'Cluster 2',
-                        marker_color = '#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package2-price 1'], name = 'Cluster 1 ',
-                        marker_color = 'lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package2-price 1'], name = 'Cluster 2 ',
-                        marker_color = '#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package3-price 1'], name='Cluster 1  ',
-                        marker_color = 'lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package3-price 1'], name = 'Cluster 2  ',
-                        marker_color = '#1dbf73'))
-        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
-        fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana")
-        fig.add_annotation(
-                x=2.5,
-                y=1000,
-                xref="x",
-                yref="y",
-                text="Prix 2",
-                showarrow=False,
-                font=dict(
-                    family="Courier New, monospace",
-                    size=16,
-                    color="#ffffff"
-                    ),
-                align="center",
-                arrowhead=2,
-                arrowsize=1,
-                arrowwidth=2,
-                arrowcolor="#636363",
-                ax=20,
-                ay=-30,
-                bordercolor="#AED6F1",
-                borderwidth=2,
-                borderpad=2,
-                bgcolor="#AED6F1",
-                opacity=0.8
-                )
-        fig.add_annotation(
-                x=0.5,
-                y=1000,
-                xref="x",
-                yref="y",
-                text="Prix 1",
-                showarrow=False,
-                font=dict(
-                    family="Courier New, monospace",
-                    size=16,
-                    color="#ffffff"
-                    ),
-                align="center",
-                arrowhead=2,
-                arrowsize=1,
-                arrowwidth=2,
-                arrowcolor="#636363",
-                ax=20,
-                ay=-30,
-                bordercolor="#AED6F1",
-                borderwidth=2,
-                borderpad=2,
-                bgcolor="#AED6F1",
-                opacity=0.8
-                )
-        fig.add_annotation(
-                x=4.5,
-                y=1000,
-                xref="x",
-                yref="y",
-                text="Prix 3",
-                showarrow=False,
-                font=dict(
-                    family="Courier New, monospace",
-                    size=16,
-                    color="#ffffff"
-                    ),
-                align="center",
-                arrowhead=2,
-                arrowsize=1,
-                arrowwidth=2,
-                arrowcolor="#636363",
-                ax=20,
-                ay=-30,
-                bordercolor="#AED6F1",
-                borderwidth=2,
-                borderpad=2,
-                bgcolor='#AED6F1',
-                opacity=0.8
-                )
-        fig.update_layout(showlegend=False)
+if categorie == 'Overview':
+    st.markdown("***")
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('How to create a title')
+    col1, col2 = st.beta_columns([5, 4])
+    with col1:
+        st.title(' ')
+        st.title(' ')
+        st.markdown('''
+        The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
+        ''')
+    with col2:
+        st.subheader(" ")
+        fig = go.Figure(go.Bar(
+            y=[52, 56],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[52, 56],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} characters')
+        fig.update_layout(plot_bgcolor='rgba(0,0,0,0)', template='plotly_white', showlegend=False,
+                          font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=300)
+        st.plotly_chart(fig, use_container_width=True)
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title.png?raw=true")
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('Add your metadata')
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
+    col1, col2 = st.beta_columns([5, 4])
+    with col1:
+        fig = go.Figure(go.Bar(
+            y=[5.5, 8],
+            x=['Cluster 1', 'Cluster 2'],
+            marker_color=['lightgray', '#1dbf73'],
+            text=[5.5, 8],
+            textposition='auto'))
+        fig.update_traces(texttemplate='%{text} fields')
+        fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
+                          height=300)
+        st.plotly_chart(fig, use_container_width=True)
+    with col2:
+        st.subheader(" ")
 
 
-        st.write(fig)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/pricing1.png?raw=true")
 
-    if sub_categorie == 'Description':
-        st.markdown("***")
-        col1, col2, col3 = st.beta_columns([1, 3, 1])
-        with col2:
-            st.title('Optimize a seller profile')
-        col1, col2, col3 = st.beta_columns([2, 1, 2])
-        with col2:
-            st.subheader('Description')
-            st.title('')
+if categorie == 'Pricing':
+    st.markdown("***")
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('Choose the best pricing')
 
+    fig = go.Figure()
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package1-price 1'], name = 'Cluster 2',
+                    marker_color = '#1dbf73'))
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package2-price 1'], name = 'Cluster 1 ',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package2-price 1'], name = 'Cluster 2 ',
+                    marker_color = '#1dbf73'))
+    fig.add_trace(go.Box(y=df[df['cluster']==1]['package3-price 1'], name='Cluster 1  ',
+                    marker_color = 'lightgrey'))
+    fig.add_trace(go.Box(y=df[df['cluster']==0]['package3-price 1'], name = 'Cluster 2  ',
+                    marker_color = '#1dbf73'))
+    fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
+    fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
+    fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
+    fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana")
+    fig.add_annotation(
+            x=2.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Standard",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor="#AED6F1",
+            opacity=0.8
+            )
+    fig.add_annotation(
+            x=0.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Basic",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor="#AED6F1",
+            opacity=0.8
+            )
+    fig.add_annotation(
+            x=4.5,
+            y=1000,
+            xref="x",
+            yref="y",
+            text="Premium",
+            showarrow=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            arrowcolor="#636363",
+            ax=20,
+            ay=-30,
+            bordercolor="#AED6F1",
+            borderwidth=2,
+            borderpad=2,
+            bgcolor='#AED6F1',
+            opacity=0.8
+            )
+    fig.update_layout(showlegend=False)
+
+
+    st.write(fig)
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/pricing1.png?raw=true")
+
+if categorie == 'Description':
+    st.markdown("***")
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
+    with col2:
+        st.title('The best description')
+        
         fig = go.Figure()
         fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
                     marker_color = 'lightgrey'))
