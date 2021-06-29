@@ -26,7 +26,7 @@ if categorie == 'Clustering':
 if categorie == 'Overview':
     st.markdown("***")
     st.title('How to create a title')
-    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema1.png?raw=true")
+    st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
     st.title('Add your metadata')
     st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata.png?raw=true")
 
