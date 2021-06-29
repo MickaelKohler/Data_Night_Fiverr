@@ -12,8 +12,10 @@ def load_data(url):
 
 # DATA #
 
-DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/db_clustering.csv'
+DB_CLUSTURING = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Databases/db_clustering.csv'
+DB_CLEAN = 'https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Databases/db_clean.csv'
 df = load_data(DB_CLUSTURING)
+df_clean = load_data(DB_CLEAN)
 
 # SIDEBAR #
 
@@ -30,7 +32,7 @@ if categorie == 'Optimize a seller profile':
 # MAIN PAGE #
 col1, col2 = st.beta_columns([2, 1])
 with col2:
-    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/logo.png', width=250)
+    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
 if categorie == 'The Mission':
     st.markdown("***")
     col1, col2, col3 = st.beta_columns([3, 2, 3])
@@ -47,15 +49,15 @@ if categorie == 'The Mission':
     st.subheader("The Mission")
     st.write(
         '''
-        Your objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
-        To find, quantify and interpret the quality criteria. Use all the techniques you know, 
-        in particular NLP for text processing, and supervised or unsupervised machine learning.
+        The objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
+        To find, quantify and interpret the quality criteria, all the techniques of NLP for text processing, 
+        and supervised or unsupervised machine learning can be use.
         ''')
 
     st.subheader('The Data')
     st.write(
         '''
-        The study is based on a database of 950 sellers on the Fiverr platform. Let’s see who are they.
+        The study is based on a **database of 950 sellers** of the Fiverr platform. *Let’s see who they are !*
         ''')
 
     # country repartition
@@ -83,7 +85,7 @@ if categorie == 'The Mission':
     st.plotly_chart(fig, use_container_width=True)
 
     # age repartition
-    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'],
+    fig = px.histogram(df_clean, x="user-stats-member-since 1", nbins=20, color_discrete_sequence=['#1dbf73'],
                        title='<b>What is their seniority ?</b>')
     fig.update_layout(title_x=0.5, font_size=13)
     fig.update_xaxes(title='Years of seniority')
@@ -101,7 +103,7 @@ if categorie == 'The Mission':
     fig3.update_layout(width=800, height=500, )
     fig3.update_traces(textposition='inside')
     fig3.update_traces(texttemplate="<br>%{percent:%f}", textfont_size=15)
-    fig3.update_layout(title="<b>Sellers' repartition</b>", font_size=13,
+    fig3.update_layout(title="<b>What is their level ?</b>", font_size=13,
                        title_x=0.5, title_font_family="Verdana")
     fig3.update_layout(showlegend=False)
     fig3.update_yaxes(color='white')
@@ -212,11 +214,13 @@ if categorie == 'Clustering':
 
     st.subheader('Why looking for clusters of sellers ?')
     st.markdown('''
-        text
-    
+        Seller's level ? Number of rates ? Or, number of bookmarks ?...
+        
+        Any of these indicators can, by itself, explain what a good profile is.
+        These indicators are strongly related to the seniority of the seller.   
     ''')
 
-    data = df.groupby('seller-level 1').mean()[['user-stats-member-since 1']]
+    data = df_clean.groupby('seller-level 1').mean()[['user-stats-member-since 1']]
     fig = go.Figure(go.Bar(
         x=['No Level', 'Level 1', 'Level 2', 'Top Rated'],
         y=data['user-stats-member-since 1'],
@@ -225,13 +229,13 @@ if categorie == 'Clustering':
         textposition='auto'))
     fig.update_traces(texttemplate='%{text} years', textfont_size=15)
     fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
-                      font_size=13, margin=dict(l=10, r=10, b=10, t=40),
+                      font_size=13, margin=dict(l=20, r=10, b=0, t=60),
                       title="Sellers' seniority according to their level",
                       title_x=.5, height=350)
-    fig.update_xaxes(title='Seller Level', dtick=1)
+    fig.update_xaxes(title=None, dtick=1)
     st.plotly_chart(fig, use_container_width=True)
 
-    data = df.groupby('seller-level 1').median()[['ratings-count 1', 'collect-count 1']]
+    data = df_clean.groupby('seller-level 1').median()[['ratings-count 1', 'collect-count 1']]
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=['No Level', 'Level 1', 'Level 2', 'Top Rated'],
                              y=data['ratings-count 1'],
@@ -242,9 +246,8 @@ if categorie == 'Clustering':
                              line=dict(color='#38b2a3', width=4),
                              name='Number of bookmarks'))
     fig.update_layout(font_family='IBM Plex Sans',
-                      title="Number of ratings and bookmarks according to the sellers' level",
-                      title_x=0.5,
-                      margin=dict(l=5, r=5, b=5),
+                      title=None,
+                      margin=dict(l=10, r=10, b=80, t=0),
                       height=550,
                       hovermode="x",
                       font_size=13,
@@ -257,7 +260,7 @@ if categorie == 'Clustering':
                           xanchor="right",
                           x=1)
                       )
-    fig.update_xaxes(dtick=1, title='Seller level',
+    fig.update_xaxes(dtick=1, title="Number of ratings and bookmarks according to the sellers' level",
                      linecolor="#BCCCDC",
                      showspikes=True,
                      spikethickness=2,
@@ -267,11 +270,18 @@ if categorie == 'Clustering':
                      )
     st.plotly_chart(fig, use_container_width=True)
 
+    st.markdown('So, how can we determine what is a good profile for a new registrant ?')
+
     st.markdown('***')
 
     st.subheader("The Selected Clusters' Characteristics")
-    st.markdown("""For the same number of scores approximately, but cluster 2 has less seniority,
-                but has double the number of bookmakers.""")
+    st.markdown("""
+        A Machine Learning model was trained on the database and it identified 4 different types of sellers.
+        
+        We decided to compare *Custler 1* and *Cluster 2*.
+    
+        For the same number of scores approximately, **Cluster 2** has **less seniority**,
+        but has **double the number of bookmakers**.""")
 
     col1, col2, col3 = st.beta_columns(3)
     with col1:
@@ -279,7 +289,7 @@ if categorie == 'Clustering':
             y=[27, 31],
             x=['Cluster 1', 'Cluster 2'],
             marker_color=['lightgray', '#1dbf73'],
-            text=[27, 31],
+            text=[29, 33],
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} rates')
         fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
@@ -347,7 +357,7 @@ if categorie == 'Optimize a seller profile':
                               font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                               height=300)
             st.plotly_chart(fig, use_container_width=True)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/title.png")
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/title.png")
 
         st.markdown('***')
 
@@ -356,7 +366,7 @@ if categorie == 'Optimize a seller profile':
             st.subheader('Add your metadata')
             st.title(' ')
 
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/metadata1.png")
         col1, col2 = st.beta_columns([5, 4])
         with col1:
             fig = go.Figure(go.Bar(
@@ -371,7 +381,12 @@ if categorie == 'Optimize a seller profile':
                               height=300)
             st.plotly_chart(fig, use_container_width=True)
         with col2:
-            st.subheader(" ")
+            st.title(' ')
+            st.markdown("""
+                Cluster 2 sellers add **47% more metadatas**.
+                           
+                Think to add as many as possible, it will improve the referencing !
+             """)
 
     if sub_categorie == 'Pricing':
         st.markdown("***")
@@ -384,23 +399,24 @@ if categorie == 'Optimize a seller profile':
             st.title(' ')
 
         fig = go.Figure()
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
-                        marker_color = 'lightgrey'))
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['package1-price 1'], name='Cluster 1',
+                        marker_color='lightgrey'))
         fig.add_trace(go.Box(y=df[df['cluster']==0]['package1-price 1'], name = 'Cluster 2',
-                        marker_color = '#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package2-price 1'], name = 'Cluster 1 ',
-                        marker_color = 'lightgrey'))
+                        marker_color='#1dbf73'))
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['package2-price 1'], name = 'Cluster 1 ',
+                        marker_color='lightgrey'))
         fig.add_trace(go.Box(y=df[df['cluster']==0]['package2-price 1'], name = 'Cluster 2 ',
-                        marker_color = '#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==1]['package3-price 1'], name='Cluster 1  ',
-                        marker_color = 'lightgrey'))
+                        marker_color='#1dbf73'))
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['package3-price 1'], name='Cluster 1  ',
+                        marker_color='lightgrey'))
         fig.add_trace(go.Box(y=df[df['cluster']==0]['package3-price 1'], name = 'Cluster 2  ',
-                        marker_color = '#1dbf73'))
+                        marker_color='#1dbf73'))
         fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
         fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
         fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(title_text="<b>Prix", range = [0,1000])
-        fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana")
+        fig.update_yaxes(title_text="<b>Prix", range=[0,1000])
+        fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana",
+                          margin=dict(l=10, r=10, b=40, t=60))
         fig.add_annotation(
                 x=2.5,
                 y=1000,
@@ -479,7 +495,7 @@ if categorie == 'Optimize a seller profile':
         fig.update_layout(showlegend=False)
 
         st.write(fig)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/pricing1.png?raw=true")
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/pricing1.png")
 
     if sub_categorie == 'Description':
         st.markdown("***")
@@ -492,9 +508,9 @@ if categorie == 'Optimize a seller profile':
             st.title(' ')
 
         fig = go.Figure()
-        fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
+        fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name='Cluster 1',
                     marker_color = 'lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
+        fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name = 'Cluster 2',
                     marker_color = '#1dbf73'))
         fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
         fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
@@ -502,4 +518,7 @@ if categorie == 'Optimize a seller profile':
         fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
         fig.update_layout(showlegend=False)
         st.write(fig)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
+
+        st.dataframe(df.groupby('cluster').median())
+
