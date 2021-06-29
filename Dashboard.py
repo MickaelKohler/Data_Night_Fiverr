@@ -20,25 +20,36 @@ df = load_data(DB_CLUSTURING)
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("Home", "Clustering", "Overview", 'Pricing', 'Description'))
+categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Overview", 'Pricing', 'Description'))
 
 
 # MAIN PAGE #
-col1, col2 = st.beta_columns([2, 3])
+col1, col2 = st.beta_columns([2, 1])
 with col2:
-    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/image_fiverr2.png?raw=true')
-if categorie == 'Home':
+    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/logo.png', width=250)
+if categorie == 'The Mission':
     st.markdown("***")
-    st.title('Home')
-    st.write("Context:")
-    st.write("Tons of gigs are made every day, and so Fiverr's algorithm highlights certain seller profiles more than others. This is where rules could be established to support the freelancers community.")
-    st.write("Problematic:")
-    st.write("Your objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. To find, quantify and interpret the quality criteria. Use all the techniques you know, in particular NLP for text processing, and supervised or unsupervised machine learning.")
+    st.title('The Start')
+    st.subheader("The Context")
+    st.markdown(
+        '''
+        Tons of gigs are made every day, and so Fiverr's algorithm highlights certain seller profiles more than others. 
+        This is where rules could be established to support the freelancers community.
+        ''')
 
-if categorie == 'Clustering':
-    st.markdown("***")
-    st.title('Clustering')
+    st.subheader("The Mission")
+    st.write(
+        '''
+        Your objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
+        To find, quantify and interpret the quality criteria. Use all the techniques you know, 
+        in particular NLP for text processing, and supervised or unsupervised machine learning.
+        ''')
 
+    st.subheader('The Data')
+    st.write(
+        '''
+        The study is based on a database of 950 sellers on the Fiverr platform. Let’s see who are they.
+        ''')
     countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True) * 100).round(2)).iloc[:10]
     fig = go.Figure(data=[go.Scatter(
         x=list(countries.index), y=[1] * 10,
@@ -60,6 +71,14 @@ if categorie == 'Clustering':
                       plot_bgcolor='rgba(0,0,0,0)')
     fig.update_yaxes(title=None, showticklabels=False)
     st.plotly_chart(fig, use_container_width=True)
+
+    fig = px.histogram(df, x="user-stats-member-since 1", nbins=16, color_discrete_sequence=['#1dbf73'],
+                       title='<b>What is their seniority ?</b>')
+    st.plotly_chart(fig, use_container_width=True)
+
+if categorie == 'Clustering':
+    st.markdown("***")
+    st.title('Clustering')
 
     st.subheader('Why looking for clusters of sellers ?')
 
