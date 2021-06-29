@@ -138,10 +138,16 @@ if categorie == 'Optimize a seller profile':
         st.markdown("***")
         col1, col2, col3 = st.beta_columns([1, 3, 1])
         with col2:
-            st.title('How to create a title')
+            st.title('Optimize a seller profile')
+        col1, col2, col3 = st.beta_columns([2, 1, 2])
+        with col2:
+            st.subheader('Overview')
+            st.title(' ')
+
         col1, col2 = st.beta_columns([5, 4])
         with col1:
             st.title(' ')
+            st.subheader('How to create a title')
             st.title(' ')
             st.markdown('''
             The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
@@ -159,10 +165,14 @@ if categorie == 'Optimize a seller profile':
                               font_family='IBM Plex Sans', font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                               height=300)
             st.plotly_chart(fig, use_container_width=True)
-        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/title_schema.png?raw=true")
-        col1, col2, col3 = st.beta_columns([1, 3, 1])
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/title_schema.png")
+
+        st.markdown('***')
+
+        col1, col2, col3 = st.beta_columns(3)
         with col2:
-            st.title('Add your metadata')
+            st.subheader('Add your metadata')
+            st.title(' ')
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/metadata1.png?raw=true")
         col1, col2 = st.beta_columns([5, 4])
         with col1:
@@ -184,7 +194,11 @@ if categorie == 'Optimize a seller profile':
         st.markdown("***")
         col1, col2, col3 = st.beta_columns([1, 3, 1])
         with col2:
-            st.title('Choose the best pricing')
+            st.title('Optimize a seller profile')
+        col1, col2, col3 = st.beta_columns(3)
+        with col2:
+            st.subheader('Choose the best pricing')
+            st.title(' ')
 
         fig = go.Figure()
         fig.add_trace(go.Box(y=df[df['cluster']==1]['package1-price 1'], name='Cluster 1',
@@ -287,11 +301,14 @@ if categorie == 'Optimize a seller profile':
 
     if sub_categorie == 'Description':
         st.markdown("***")
-        col1, col2, col3 = st.beta_columns(3)
+        col1, col2, col3 = st.beta_columns([1, 3, 1])
         with col2:
-            st.title('Description')
+            st.title('Optimize a seller profile')
+        col1, col2, col3 = st.beta_columns([2, 1, 2])
+        with col2:
+            st.subheader('Description')
+            st.title('')
 
-        st.title('')
         fig = go.Figure()
         fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
                     marker_color = 'lightgrey'))
