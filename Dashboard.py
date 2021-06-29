@@ -289,9 +289,9 @@ if categorie == 'Pricing':
 
 if categorie == 'Description':
     st.markdown("***")
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
     with col2:
-        st.title('Description')
+        st.title('The best description')
 
     st.title('')
     fig = go.Figure()
