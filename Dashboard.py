@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -321,3 +322,6 @@ if categorie == 'Optimize a seller profile':
         fig.update_layout(showlegend=False)
         st.write(fig)
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/description_1.png?raw=true")
+=======
+3e93c8561421873d2c4711b4ff08400b78acc4ab
+>>>>>>> Stashed changes
