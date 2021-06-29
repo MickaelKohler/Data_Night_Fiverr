@@ -5,7 +5,7 @@ import streamlit as st
 st.sidebar.title('Hackathon Challenge')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("Accueil", "Data Cleaning","DataViz"
+categorie = st.sidebar.radio("Categories", ("Accueil", "Data Cleaning","DataViz",
                                             "Maching Learning","NLP"))
 
 
@@ -24,16 +24,3 @@ if categorie == 'Maching Learning':
 if categorie == 'NLP':
     st.title('NLP')
 
-
-
-
-# test
-
-# let's code
-
-<<<<<<< Updated upstream
-# salut, beaucoup de travail nous attend jusqu'a demain
-
-=======
-# salut, beaucoup de travail nous attend
->>>>>>> Stashed changes
