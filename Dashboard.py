@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 # FONCTION #
 
+
 @st.cache
 def load_data(url):
     return pd.read_csv(url)
@@ -98,14 +99,11 @@ if categorie == 'The Mission':
     pivot = pivot.reset_index()
 
     fig3 = px.pie(pivot, values='Address', names='seller-level 1', labels='seller-level 1',
-                  color_discrete_sequence=px.colors.sequential.Tealgrn_r, hole=.5
-                  )
-    fig3.update_layout(width=800, height=500, )
-    fig3.update_traces(textposition='inside')
-    fig3.update_traces(texttemplate="<br>%{percent:%f}", textfont_size=15)
-    fig3.update_layout(title="<b>What is their level ?</b>", font_size=13,
+                  color_discrete_sequence=px.colors.sequential.Tealgrn_r, hole=.5)
+    fig3.update_layout(width=800, height=500, showlegend=False,
+                       title="<b>What is their level ?</b>", font_size=13,
                        title_x=0.5, title_font_family="Verdana")
-    fig3.update_layout(showlegend=False)
+    fig3.update_traces(textposition='inside', texttemplate="<br>%{percent:%f}", textfont_size=15)
     fig3.update_yaxes(color='white')
     fig3.update_xaxes(color='white')
     fig3.add_annotation(
@@ -200,7 +198,6 @@ if categorie == 'The Mission':
         bgcolor='#2c98a1',
         opacity=0.8
     )
-
     fig3.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -224,7 +221,7 @@ if categorie == 'Clustering':
     fig = go.Figure(go.Bar(
         x=['No Level', 'Level 1', 'Level 2', 'Top Rated'],
         y=data['user-stats-member-since 1'],
-        marker_color=['#1dbf73']*4,
+        marker={'color': ['#1dbf73']*4},
         text=data['user-stats-member-since 1'].round(2),
         textposition='auto'))
     fig.update_traces(texttemplate='%{text} years', textfont_size=15)
@@ -288,20 +285,19 @@ if categorie == 'Clustering':
         fig = go.Figure(go.Bar(
             y=[27, 31],
             x=['Cluster 1', 'Cluster 2'],
-            marker_color=['lightgray', '#1dbf73'],
+            marker={'color': ['lightgray', '#1dbf73']},
             text=[29, 33],
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} rates')
         fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
-                          font_size=15, margin=dict(l=10, r=10, b=10, t=20),
-                          height=350)
+                          font_size=15, margin=dict(l=10, r=10, b=10, t=20), height=350)
         fig.update_xaxes(title='Number of ratings')
         st.plotly_chart(fig, use_container_width=True)
     with col2:
         fig = go.Figure(go.Bar(
             y=[3.20, 2.3],
             x=['Cluster 1', 'Cluster 2'],
-            marker_color=['lightgray', '#1dbf73'],
+            marker={'color': ['lightgray', '#1dbf73']},
             text=[3.20, 2.3],
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} years')
@@ -315,7 +311,7 @@ if categorie == 'Clustering':
         fig = go.Figure(go.Bar(
             y=[16, 29],
             x=['Cluster 1', 'Cluster 2'],
-            marker_color=['lightgray', '#1dbf73'],
+            marker={'color': ['lightgray', '#1dbf73']},
             text=[16, 29],
             textposition='auto'))
         fig.update_traces(texttemplate='%{text} add')
@@ -342,14 +338,15 @@ if categorie == 'Optimize a seller profile':
             st.subheader('How to create a title')
             st.title(' ')
             st.markdown('''
-            The average length of a title is 50 characters. Choose the words in the title well to have a good referencing. 
+            The average length of a title is 50 characters. 
+            Choose the words in the title well to have a good referencing. 
             ''')
         with col2:
             st.subheader(" ")
             fig = go.Figure(go.Bar(
                 y=[52, 56],
                 x=['Cluster 1', 'Cluster 2'],
-                marker_color=['lightgray', '#1dbf73'],
+                marker={'color': ['lightgray', '#1dbf73']},
                 text=[52, 56],
                 textposition='auto'))
             fig.update_traces(texttemplate='%{text} characters')
@@ -372,7 +369,7 @@ if categorie == 'Optimize a seller profile':
             fig = go.Figure(go.Bar(
                 y=[5.5, 8],
                 x=['Cluster 1', 'Cluster 2'],
-                marker_color=['lightgray', '#1dbf73'],
+                marker={'color': ['lightgray', '#1dbf73']},
                 text=[5.5, 8],
                 textposition='auto'))
             fig.update_traces(texttemplate='%{text} fields')
@@ -399,22 +396,28 @@ if categorie == 'Optimize a seller profile':
             st.title(' ')
 
         fig = go.Figure()
-        fig.add_trace(go.Box(y=df[df['cluster']==2]['package1-price 1'], name='Cluster 1',
-                        marker_color='lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package1-price 1'], name = 'Cluster 2',
-                        marker_color='#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==2]['package2-price 1'], name = 'Cluster 1 ',
-                        marker_color='lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package2-price 1'], name = 'Cluster 2 ',
-                        marker_color='#1dbf73'))
-        fig.add_trace(go.Box(y=df[df['cluster']==2]['package3-price 1'], name='Cluster 1  ',
-                        marker_color='lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['package3-price 1'], name = 'Cluster 2  ',
-                        marker_color='#1dbf73'))
-        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(title_text="<b>Prix", range=[0,1000])
+        fig.add_trace(go.Box(y=df[df['cluster'] == 2]['package1-price 1'],
+                             name='Cluster 1',
+                             marker={'color': 'lightgrey'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 0]['package1-price 1'],
+                             name='Cluster 2',
+                             marker={'color': '#1dbf73'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 2]['package2-price 1'],
+                             name='Cluster 1 ',
+                             marker={'color': 'lightgrey'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 0]['package2-price 1'],
+                             name='Cluster 2 ',
+                             marker={'color': '#1dbf73'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 2]['package3-price 1'],
+                             name='Cluster 1  ',
+                             marker={'color': 'lightgrey'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 0]['package3-price 1'],
+                             name='Cluster 2  ',
+                             marker={'color': '#1dbf73'}))
+        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
+        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
+        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)',
+                         title_text="<b>Prix", range=[0, 1000])
         fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana",
                           margin=dict(l=10, r=10, b=40, t=60))
         fig.add_annotation(
@@ -508,17 +511,16 @@ if categorie == 'Optimize a seller profile':
             st.title(' ')
 
         fig = go.Figure()
-        fig.add_trace(go.Box(y=df[df['cluster']==2]['len_description'], name='Cluster 1',
-                    marker_color = 'lightgrey'))
-        fig.add_trace(go.Box(y=df[df['cluster']==0]['len_description'], name = 'Cluster 2',
-                    marker_color = '#1dbf73'))
-        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)','paper_bgcolor': 'rgba(0,0,0,0)'})
-        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor ='rgba(0,0,0,0)')
-        fig.update_layout(title_text="<b>Description's length by clusters", title_x=0.5, title_font_family="Verdana")
-        fig.update_layout(showlegend=False)
-        st.write(fig)
+        fig.add_trace(go.Box(y=df[df['cluster'] == 2]['len_description'],
+                             name='Cluster 1',
+                             marker={'color': 'lightgrey'}))
+        fig.add_trace(go.Box(y=df[df['cluster'] == 0]['len_description'],
+                             name='Cluster 2',
+                             marker={'color': '#1dbf73'}))
+        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'},
+                          title_text="<b>Description's length by clusters", title_x=0.5,
+                          title_font_family="Verdana", showlegend=False)
+        fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
+        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
+        st.plotly_chart(fig)
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
-
-        #st.dataframe(df.groupby('cluster').median())
-
