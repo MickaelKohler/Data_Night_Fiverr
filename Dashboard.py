@@ -30,7 +30,7 @@ if categorie == 'Optimize a seller profile':
                                                                    'Pricing',
                                                                    'Description'))
 
-for n in range(4):
+for n in range(6):
     st.sidebar.title(' ')
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
