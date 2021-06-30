@@ -19,7 +19,7 @@ df_clean = load_data(DB_CLEAN)
 
 # SIDEBAR #
 
-st.sidebar.title('Hackathon Challenge')
+st.sidebar.title('Hackathon Challenge :rocket:')
 st.sidebar.subheader('Navigation')
 
 categorie = st.sidebar.radio("Categories", ("The Mission", "Clustering", "Optimize a seller profile"))
@@ -520,5 +520,5 @@ if categorie == 'Optimize a seller profile':
         st.write(fig)
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
 
-        st.dataframe(df.groupby('cluster').median())
+        #st.dataframe(df.groupby('cluster').median())
 
