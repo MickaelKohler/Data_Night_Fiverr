@@ -70,7 +70,7 @@ if categorie == 'The Mission':
         ''')
 
     # country repartition
-    countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True) * 100).round(2)).iloc[:10]
+    countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True)*100).round(2)).iloc[:10]
     fig = go.Figure(data=[go.Scatter(
         x=list(countries.index), y=[1] * 10,
         text=countries['user-stats-from 1'],
@@ -81,15 +81,20 @@ if categorie == 'The Mission':
             sizemode='area',
             sizeref=0.002,
             showscale=True,
-            colorscale='Tealgrn'
+            colorscale='Tealgrn',
+            colorbar=dict(
+                title="Percent",
+                ticksuffix=" %",
+            ),
         )
     )])
-    fig.update_layout(showlegend=False, font_family='IBM Plex Sans',
+    fig.update_layout(font_family='IBM Plex Sans',
                       title='<b>Which country do Fiverrs come from ?</b>',
                       uniformtext_minsize=14, uniformtext_mode='hide',
                       title_x=0.5, font_size=13,
                       margin=dict(l=10, r=10, b=10),
-                      plot_bgcolor='rgba(0,0,0,0)')
+                      plot_bgcolor='rgba(0,0,0,0)',
+                      )
     fig.update_yaxes(title=None, showticklabels=False)
     st.plotly_chart(fig, use_container_width=True)
 
