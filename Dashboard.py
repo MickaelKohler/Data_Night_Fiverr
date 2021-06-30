@@ -30,6 +30,11 @@ if categorie == 'Optimize a seller profile':
                                                                    'Pricing',
                                                                    'Description'))
 
+for n in range(4):
+    st.sidebar.title(' ')
+st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
+st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
+
 # MAIN PAGE #
 col1, col2 = st.beta_columns([2, 1])
 with col2:
@@ -58,7 +63,7 @@ if categorie == 'The Mission':
     st.subheader('The Data')
     st.write(
         '''
-        The study is based on a **database of 950 sellers** of the Fiverr platform. *Let’s see who they are !*
+        The study is based on a **database of 952 sellers** of the Fiverr platform. *Let’s see who they are !*
         ''')
 
     # country repartition
@@ -88,7 +93,7 @@ if categorie == 'The Mission':
     # age repartition
     fig = px.histogram(df_clean, x="user-stats-member-since 1", nbins=20, color_discrete_sequence=['#1dbf73'],
                        title='<b>What is their seniority ?</b>')
-    fig.update_layout(title_x=0.5, font_size=13)
+    fig.update_layout(title_x=0.5, font_size=13, template='plotly_white', plot_bgcolor='rgba(0,0,0,0)')
     fig.update_xaxes(title='Years of seniority')
     fig.update_yaxes(title='Numbers of Fiverrs')
     st.plotly_chart(fig, use_container_width=True)
@@ -373,7 +378,7 @@ if categorie == 'Optimize a seller profile':
                 text=[5.5, 8],
                 textposition='auto'))
             fig.update_traces(texttemplate='%{text} fields')
-            fig.update_layout(template='plotly_white', showlegend=False, font_family='IBM Plex Sans',
+            fig.update_layout(template='plotly_white', plot_bgcolor='rgba(0,0,0,0)', showlegend=False, font_family='IBM Plex Sans',
                               font_size=15, margin=dict(l=10, r=10, b=10, t=20),
                               height=300)
             st.plotly_chart(fig, use_container_width=True)
@@ -414,10 +419,9 @@ if categorie == 'Optimize a seller profile':
         fig.add_trace(go.Box(y=df[df['cluster'] == 0]['package3-price 1'],
                              name='Cluster 2  ',
                              marker={'color': '#1dbf73'}))
-        fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
+        fig.update_layout(template='plotly_white', plot_bgcolor='rgba(0,0,0,0)')
         fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
-        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)',
-                         title_text="<b>Prix", range=[0, 1000])
+        fig.update_yaxes(title_text="<b>Price", range=[0, 1000])
         fig.update_layout(title_text="<b>Prices by clusters", title_x=0.5, title_font_family="Verdana",
                           margin=dict(l=10, r=10, b=40, t=60))
         fig.add_annotation(
