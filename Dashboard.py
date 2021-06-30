@@ -29,9 +29,12 @@ if categorie == 'Optimize a seller profile':
     sub_categorie = st.sidebar.radio("Optimize a seller profile", ('Overview',
                                                                    'Pricing',
                                                                    'Description'))
-
-for n in range(6):
-    st.sidebar.title(' ')
+if categorie == 'Optimize a seller profile':
+    for n in range(4):
+        st.sidebar.title(' ')
+else:
+    for n in range(8):
+        st.sidebar.title(' ')
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
 
