@@ -66,7 +66,7 @@ if categorie == 'The Mission':
     st.subheader('The Data')
     st.write(
         '''
-        The study is based on a **database of 952 sellers** of the Fiverr platform. *Let’s see who they are !*
+        The study is based on a **database of 951 sellers** of the Fiverr platform. *Let’s see who they are !*
         ''')
 
     # country repartition
