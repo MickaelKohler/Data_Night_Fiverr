@@ -61,9 +61,9 @@ if categorie == 'The Mission':
     st.subheader("The Mission")
     st.write(
         '''
-        The objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
-        To find, quantify and interpret the quality criteria, all the techniques of NLP for text processing, 
-        and supervised or unsupervised machine learning can be use.
+        # The objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
+        # To find, quantify and interpret the quality criteria, all the techniques of NLP for text processing, 
+        # and supervised or unsupervised machine learning can be use.
         ''')
 
     st.subheader('The Data')
@@ -93,7 +93,7 @@ if categorie == 'The Mission':
         )
     )])
     fig.update_layout(font_family='IBM Plex Sans',
-                      title='<b>Which country do Fiverrs come from ?</b>',
+                      title='<b>Which country Fiverrs come from ?</b>',
                       uniformtext_minsize=14, uniformtext_mode='hide',
                       title_x=0.5, font_size=13,
                       margin=dict(l=10, r=10, b=10),
