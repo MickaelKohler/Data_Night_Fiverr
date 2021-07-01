@@ -69,8 +69,9 @@ if categorie == 'The Mission':
     st.subheader('The Data')
     st.write(
         '''
-        The study is based on a **database of 951 sellers** of the Fiverr platform. *Let’s see who they are !*
-        ''')
+        The study is based on a **dataset of 951 gigs** from the Fiverr platform. *Let’s see who they are !*
+        ''') 
+
 
 if categorie == 'The Data':
     st.markdown("***")
@@ -289,15 +290,15 @@ if categorie == 'Clustering':
                      )
     st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown('So, how can we determine what is a good profile for a new registrant ?')
-
+    
+    st.subheader("So, how can we determine what is a good profile for a new registrant ?")
     st.markdown('***')
 
     st.subheader("The Selected Clusters' Characteristics")
     st.markdown("""
         A Machine Learning model was trained on the database and it identified 4 different types of sellers.
         
-        We decided to compare *Custler 1* and *Cluster 2*.
+        We decided to compare *Cluster 1* and *Cluster 2*.
     
         For the same number of scores approximately, **Cluster 2** has **less seniority**,
         but has **double the number of bookmakers**.""")
