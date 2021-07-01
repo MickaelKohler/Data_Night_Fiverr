@@ -67,9 +67,7 @@ if categorie == 'The Mission':
         st.image("https://www.wildcodeschool.com/static/imgs/logo.png")
 
 
-col1, col2 = st.beta_columns([2, 1])
-with col2:
-    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
+
 
 if categorie == 'The Data':
     col1, col2 = st.beta_columns([2, 1])
@@ -571,8 +569,6 @@ if categorie == 'Last words':
         st.subheader("- Optimize your Title and Description for better SEO")
         st.subheader("- Set the right price regarding to the market")
         st.title(" ")
-        st.title(' ')
-        st.title(' ')
         st.title(' ')
     col1, col2, col3 = st.beta_columns([1, 5, 1])
     with col2: 
