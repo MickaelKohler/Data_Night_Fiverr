@@ -38,12 +38,10 @@ if categorie == 'Optimize a seller profile':
 else:
     for n in range(8):
         st.sidebar.title(' ')
-#st.sidebar.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true")        
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
 
 # MAIN PAGE #
-
 if categorie == 'The Mission':
     col1, col2, col3 = st.beta_columns([3, 2, 3])
     with col2:
@@ -68,6 +66,10 @@ if categorie == 'The Mission':
     with col2:
         st.image("https://www.wildcodeschool.com/static/imgs/logo.png")
 
+
+col1, col2 = st.beta_columns([2, 1])
+with col2:
+    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
 
 if categorie == 'The Data':
     col1, col2 = st.beta_columns([2, 1])
@@ -559,22 +561,23 @@ if categorie == 'Optimize a seller profile':
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
 
 if categorie == 'Last words':
-    col1, col2, col3 = st.beta_columns([1, 3.5, 1])
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
     with col2: 
         st.title('Few words to conclude')  
     
     col1, col2, col3 = st.beta_columns([1, 5, 1])
     with col2:
-        
-        
         st.write(' ')
         st.subheader("- Optimize your Title and Description for better SEO")
         st.subheader("- Set the right price regarding to the market")
         st.title(" ")
+        st.title(' ')
+        st.title(' ')
+        st.title(' ')
     col1, col2, col3 = st.beta_columns([1, 5, 1])
     with col2: 
         st.title("Thank you for your attention")  
     st.write(" ") 
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.beta_columns([3, 1, 5])
     with col2:         
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true", width=200)  
