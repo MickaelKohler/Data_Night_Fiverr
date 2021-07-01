@@ -33,10 +33,10 @@ if categorie == 'Optimize a seller profile':
                                                                    'Pricing',
                                                                    'Description'))
 if categorie == 'Optimize a seller profile':
-    for n in range(4):
+    for n in range(3):
         st.sidebar.title(' ')
 else:
-    for n in range(8):
+    for n in range(6):
         st.sidebar.title(' ')
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
@@ -58,6 +58,7 @@ if categorie == 'The Mission':
         '''
         Advise the Fiverr freelancers on how to fill efficiently their Seller Profile.
         ''')
+    st.title(" ")
     st.title(" ")
     col1, col2  = st.beta_columns(2)
     with col1:
