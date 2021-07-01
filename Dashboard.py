@@ -559,22 +559,23 @@ if categorie == 'Optimize a seller profile':
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
 
 if categorie == 'Last words':
-    col1, col2, col3 = st.beta_columns([1, 3.5, 1])
+    col1, col2, col3 = st.beta_columns([1, 3, 1])
     with col2: 
         st.title('Few words to conclude')  
     
     col1, col2, col3 = st.beta_columns([1, 5, 1])
     with col2:
-        
-        
         st.write(' ')
         st.subheader("- Optimize your Title and Description for better SEO")
         st.subheader("- Set the right price regarding to the market")
         st.title(" ")
+        st.title(' ')
+        st.title(' ')
+        st.title(' ')
     col1, col2, col3 = st.beta_columns([1, 5, 1])
     with col2: 
         st.title("Thank you for your attention")  
     st.write(" ") 
-    col1, col2, col3 = st.beta_columns(3)
+    col1, col2, col3 = st.beta_columns([3, 1, 5])
     with col2:         
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true", width=200)  
