@@ -26,7 +26,7 @@ df_clean = load_data(DB_CLEAN)
 st.sidebar.title('Hackathon Challenge :rocket:')
 st.sidebar.subheader('Navigation')
 
-categorie = st.sidebar.radio("Categories", ("The Mission", "The Data", "Clustering", "Optimize a seller profile"))
+categorie = st.sidebar.radio("Categories", ("The Mission", "The Data", "Clustering", "Optimize a seller profile", "Last words"))
 
 if categorie == 'Optimize a seller profile':
     sub_categorie = st.sidebar.radio("Optimize a seller profile", ('Overview',
@@ -38,45 +38,52 @@ if categorie == 'Optimize a seller profile':
 else:
     for n in range(8):
         st.sidebar.title(' ')
+#st.sidebar.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true")        
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
 
 # MAIN PAGE #
-col1, col2 = st.beta_columns([2, 1])
-with col2:
-    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
+
 if categorie == 'The Mission':
-    st.markdown("***")
     col1, col2, col3 = st.beta_columns([3, 2, 3])
     with col2:
-        st.title('The Start')
-        st.title(' ')
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true")
+        #st.title('The Start')
+        st.write(' ')
     st.subheader("The Context")
     st.markdown(
         '''
         Tons of gigs are made every day, and so Fiverr's algorithm highlights certain seller profiles more than others. 
-        This is where rules could be established to support the freelancers community.
         ''')
 
     st.subheader("The Mission")
     st.write(
         '''
-        # The objective is to advise the Fiverr freelancers on how to fill efficiently their Seller Profile. 
-        # To find, quantify and interpret the quality criteria, all the techniques of NLP for text processing, 
-        # and supervised or unsupervised machine learning can be use.
+        Advise the Fiverr freelancers on how to fill efficiently their Seller Profile.
         ''')
+    st.title(" ")
+    col1, col2  = st.beta_columns(2)
+    with col1:
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png")
+    with col2:
+        st.image("https://www.wildcodeschool.com/static/imgs/logo.png")
+
 
 if categorie == 'The Data':
-    st.markdown("***")
-    col1, col2, col3 = st.beta_columns([2, 3, 2])
+    col1, col2 = st.beta_columns([2, 1])
     with col2:
-        st.title('The Dataset')
-        st.title(' ')
-
-    st.markdown(
+        st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
+    st.markdown("***")
+    col1, col2, col3 = st.beta_columns([3, 2, 3])
+    with col2:
+        st.title('The Data')
+        st.title(" ")
+    st.write(
         '''
         The study is based on a **dataset of 951 gigs** from the Fiverr platform. *Let’s see who they are !*
-        ''')
+        ''') 
+
+
     # country repartition
     countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True)*100).round(2)).iloc[:10]
     fig = go.Figure(data=[go.Scatter(
@@ -224,6 +231,9 @@ if categorie == 'The Data':
 
 
 if categorie == 'Clustering':
+    col1, col2 = st.beta_columns([2, 1])
+    with col2:
+        st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
     st.markdown("***")
     col1, col2, col3 = st.beta_columns([3, 2, 3])
     with col2:
@@ -343,6 +353,9 @@ if categorie == 'Clustering':
         st.plotly_chart(fig, use_container_width=True)
 
 if categorie == 'Optimize a seller profile':
+    col1, col2 = st.beta_columns([2, 1])
+    with col2:
+        st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
     if sub_categorie == 'Overview':
         st.markdown("***")
         col1, col2, col3 = st.beta_columns([1, 3, 1])
@@ -544,3 +557,24 @@ if categorie == 'Optimize a seller profile':
         fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
         st.plotly_chart(fig)
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
+
+if categorie == 'Last words':
+    col1, col2, col3 = st.beta_columns([1, 3.5, 1])
+    with col2: 
+        st.title('Few words to conclude')  
+    
+    col1, col2, col3 = st.beta_columns([1, 5, 1])
+    with col2:
+        
+        
+        st.write(' ')
+        st.subheader("- Optimize your Title and Description for better SEO")
+        st.subheader("- Set the right price regarding to the market")
+        st.title(" ")
+    col1, col2, col3 = st.beta_columns([1, 5, 1])
+    with col2: 
+        st.title("Thank you for your attention")  
+    st.write(" ") 
+    col1, col2, col3 = st.beta_columns(3)
+    with col2:         
+        st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true", width=200)  
