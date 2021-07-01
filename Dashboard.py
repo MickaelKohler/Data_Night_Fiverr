@@ -38,12 +38,10 @@ if categorie == 'Optimize a seller profile':
 else:
     for n in range(8):
         st.sidebar.title(' ')
-#st.sidebar.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true")        
 st.sidebar.info('Made by the **Data Night Fiverr Team**: _Maxime, Michaël, Mickaël, Sebastien_')
 st.sidebar.info('Hackathon organized by the **WildCodeSchool** in partnership with *Fiverr*, on 06/30/2021')
 
 # MAIN PAGE #
-
 if categorie == 'The Mission':
     col1, col2, col3 = st.beta_columns([3, 2, 3])
     with col2:
@@ -68,6 +66,10 @@ if categorie == 'The Mission':
     with col2:
         st.image("https://www.wildcodeschool.com/static/imgs/logo.png")
 
+
+col1, col2 = st.beta_columns([2, 1])
+with col2:
+    st.image('https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png', width=250)
 
 if categorie == 'The Data':
     col1, col2 = st.beta_columns([2, 1])
