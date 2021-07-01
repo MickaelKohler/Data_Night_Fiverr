@@ -554,7 +554,7 @@ if categorie == 'Optimize a seller profile':
                           title_text="<b>Description's length by clusters", title_x=0.5,
                           title_font_family="Verdana", showlegend=False)
         fig.update_xaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
-        fig.update_yaxes(showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
+        fig.update_yaxes(title="Number of characters", showgrid=False, gridwidth=1, gridcolor='white', linecolor='rgba(0,0,0,0)')
         st.plotly_chart(fig)
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/description_1.png")
 
