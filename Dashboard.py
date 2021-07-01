@@ -46,7 +46,6 @@ if categorie == 'The Mission':
     col1, col2, col3 = st.beta_columns([3, 2, 3])
     with col2:
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/blob/main/Ressources/logo_2.png?raw=true")
-        #st.title('The Start')
         st.write(' ')
     st.subheader("The Context")
     st.markdown(
@@ -65,9 +64,6 @@ if categorie == 'The Mission':
         st.image("https://github.com/MickaelKohler/Data_Night_Fiverr/raw/main/Ressources/logo.png")
     with col2:
         st.image("https://www.wildcodeschool.com/static/imgs/logo.png")
-
-
-
 
 if categorie == 'The Data':
     col1, col2 = st.beta_columns([2, 1])
