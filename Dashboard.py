@@ -80,6 +80,13 @@ if categorie == 'The Data':
         The study is based on a **dataset of 951 gigs** from the Fiverr platform. *Let’s see who they are !*
         ''') 
 
+    # age repartition
+    fig = px.histogram(df_clean, x="user-stats-member-since 1", nbins=20, color_discrete_sequence=['#1dbf73'],
+                       title='<b>What is their seniority ?</b>',width=200, height=380)
+    fig.update_layout(title_x=0.5, font_size=13, template='plotly_white', plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_xaxes(title='Years of seniority')
+    fig.update_yaxes(title='Numbers of Fiverrs')
+    st.plotly_chart(fig, use_container_width=True)
 
     # country repartition
     countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True)*100).round(2)).iloc[:10]
@@ -105,17 +112,9 @@ if categorie == 'The Data':
                       uniformtext_minsize=14, uniformtext_mode='hide',
                       title_x=0.5, font_size=13,
                       margin=dict(l=10, r=10, b=10),
-                      plot_bgcolor='rgba(0,0,0,0)',
+                      plot_bgcolor='rgba(0,0,0,0)', height=375
                       )
     fig.update_yaxes(title=None, showticklabels=False)
-    st.plotly_chart(fig, use_container_width=True)
-
-    # age repartition
-    fig = px.histogram(df_clean, x="user-stats-member-since 1", nbins=20, color_discrete_sequence=['#1dbf73'],
-                       title='<b>What is their seniority ?</b>')
-    fig.update_layout(title_x=0.5, font_size=13, template='plotly_white', plot_bgcolor='rgba(0,0,0,0)')
-    fig.update_xaxes(title='Years of seniority')
-    fig.update_yaxes(title='Numbers of Fiverrs')
     st.plotly_chart(fig, use_container_width=True)
 
     # level reparition
@@ -125,7 +124,7 @@ if categorie == 'The Data':
 
     fig3 = px.pie(pivot, values='Address', names='seller-level 1', labels='seller-level 1',
                   color_discrete_sequence=px.colors.sequential.Tealgrn_r, hole=.5)
-    fig3.update_layout(width=800, height=500, showlegend=False,
+    fig3.update_layout(width=800, height=490, showlegend=False,
                        title="<b>What is their level ?</b>", font_size=13,
                        title_x=0.5, title_font_family="Verdana")
     fig3.update_traces(textposition='inside', texttemplate="<br>%{percent:%f}", textfont_size=15)
