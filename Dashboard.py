@@ -66,19 +66,17 @@ if categorie == 'The Mission':
         and supervised or unsupervised machine learning can be use.
         ''')
 
-    st.subheader('The Data')
-    st.write(
-        '''
-        The study is based on a **dataset of 951 gigs** from the Fiverr platform. *Let’s see who they are !*
-        ''') 
-
-
 if categorie == 'The Data':
     st.markdown("***")
     col1, col2, col3 = st.beta_columns([2, 3, 2])
     with col2:
         st.title('The Dataset')
         st.title(' ')
+
+    st.markdown(
+        '''
+        The study is based on a **dataset of 951 gigs** from the Fiverr platform. *Let’s see who they are !*
+        ''')
     # country repartition
     countries = pd.DataFrame((df['user-stats-from 1'].value_counts(normalize=True)*100).round(2)).iloc[:10]
     fig = go.Figure(data=[go.Scatter(
